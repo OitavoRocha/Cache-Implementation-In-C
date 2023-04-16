@@ -3,6 +3,7 @@
     nao esta abrindo o arquivo na função mapeada diretamente
 
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -87,18 +88,19 @@ void readCommandLine( int * nSets, int * bSize, int * assoc, char * subst, int *
 
 void directMapped( int nSets, int bSize, int assoc, char * arquivoEntrada, int * accesses, int * compulsory, int * conflict ) {
     Cache c1 = (Cache)malloc( sizeof( struct _cache ) * ( nSets * assoc ) );
-    FILE * p = fopen( arquivoEntrada, "rb" );
+    FILE *p;
     int end;
     int read; // variable to read from file
     int tag;
     int index;
 
+    p = fopen( "bin_100.bin" , "rb" );
     if ( !p ) {
         printf("Impossivel abrir o arquivo\n");
         exit(1);
     }
 
-    while( fscanf(p, "%d", &read) == 1 ) {
+    while( fread(read, sizeof( int ), 1, p) == 1 ) {
         end = read;
         tag = end >> (nBitsOffset + nBitsIndex);
         index = ( end >> (nBitsTag) ) & ( (int)pow(2, nBitsIndex) - 1 );
