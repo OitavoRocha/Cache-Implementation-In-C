@@ -100,6 +100,10 @@ void directMapped( int nSets, int bSize, int assoc, char * arquivoEntrada, int *
         exit(1);
     }
 
+    // sets all val variables to 0
+    for ( int i = 0 ; i < nSets * assoc ; i++ ) 
+        c1[i].val = 0;
+         
     while( fread(read, sizeof( int ), 1, p) == 1 ) {
         end = read;
         tag = end >> (nBitsOffset + nBitsIndex);
