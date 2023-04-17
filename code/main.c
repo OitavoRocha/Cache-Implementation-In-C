@@ -1,6 +1,6 @@
 /*
         ERROS ENCONTRADOS:
-    nao esta abrindo o arquivo na função mapeada diretamente
+    os resultados do mapeamento direto estao incorretos
 
 */
 
