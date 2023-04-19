@@ -11,7 +11,9 @@ Email: otavio.sr@inf.ufpel.edu.br
     O programa tem somente a implementação da política de substituição Random.
 
     Para compilar foi utilizado a seguinte linha de comando:
+    
     <pre><code> gcc main.c -o cache_simulator -Wall -lm </code></pre>
+    
     Como foi utilizada a biblioteca *math.h* se faz necessário o *-lm* do final para que a compilação seja feita com sucesso.
 
     Na execução, siga o padrão: <br/>
