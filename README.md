@@ -16,6 +16,6 @@ Email: otavio.sr@inf.ufpel.edu.br
     
    Como foi utilizada a biblioteca *math.h* se faz necessário o *-lm* do final para que a compilação seja feita com sucesso.
 
-   Na execução, siga o padrão: **./cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> arquivo_de_entrada**
+   Na execução, siga o padrão: **cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> arquivo_de_entrada**
 
    Por exemplo: <pre><code> ./cache_simulator 256 4 1 R 1 bin_100.bin </code></pre>
