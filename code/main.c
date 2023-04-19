@@ -18,7 +18,6 @@ typedef struct _cache * Cache;
 
 void readCommandLine( int * nSets, int * bSize, int * assoc, int * flagOut, char * arquivoEntrada, int argc, char const ** argv ); // function to read from the command line
 uint32_t reverseAddress( int address );
-int randomSwap( int assoc );
 void fullyAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, int * accesses, int * hit, int * misses, int * compulsory, int * capacity );
 void directMapped( int nSets, int bSize, int assoc, char * arquivoEntrada, int * accesses, int * hit, int * misses, int * compulsory, int * conflict );
 void setAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, int * accesses, int * hit, int * misses, int * compulsory, int * capacity, int * conflict );
@@ -104,11 +103,6 @@ uint32_t reverseAddress( int address ) { // OK
     return reversed;
 }
 
-int randomSwap( int assoc ) { // OK
-    srand(time(NULL));
-
-    return rand() % assoc;
-} 
 
 void directMapped( int nSets, int bSize, int assoc, char * arquivoEntrada, int * accesses, int * hit, int * misses, int * compulsory, int * conflict ) // OK
 {
@@ -168,6 +162,9 @@ void setAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, int
     int isFull = 0;
 
 
+    srand(time(NULL)); // sets seed for rand to generate random numbers
+
+
     for ( int i = 0 ; i < nSets ; i++ )
         c1[i] = (Cache)malloc( sizeof( struct _cache ) * assoc );
     
@@ -211,7 +208,7 @@ void setAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, int
             if ( hitFlag == 0 ) {
                 (*misses)++;
                 (*conflict)++;
-                c1[(int)index][randomSwap( assoc )].tag = tag;
+                c1[(int)index][rand() % assoc].tag = tag;
             }
         } else {
             for( int i = 0 ; i < assoc ; i++ ) {
@@ -224,7 +221,7 @@ void setAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, int
             if ( hitFlag == 0 ){
                 (*misses)++;
                 (*capacity)++;
-                c1[(int)index][randomSwap( assoc )].tag = tag;
+                c1[(int)index][rand() % assoc].tag = tag;
             }
         }
 
@@ -260,6 +257,9 @@ void fullyAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, i
     int isFull = 0;
 
 
+    srand(time(NULL)); // sets seed for rand to generate random numbers
+
+
     for ( int i = 0 ; i < assoc ; i++ ) 
          c1[i].val = 0;
          
@@ -288,11 +288,9 @@ void fullyAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, i
                     c1[i].val = 1;
                     c1[i].tag = tag;
                     i = assoc; // to end loop
-                    //isIn = 1; // to know if the address was already threated
                 } else if ( c1[i].tag == tag ) {
                     (*hit)++;
                     i = assoc; // to end loop
-                    //isIn = 1; // to know if the address was already threated
                 }
             }        
         } else {
@@ -307,7 +305,7 @@ void fullyAssociative( int nSets, int bSize, int assoc, char * arquivoEntrada, i
             if ( isIn == 0 ) {
                 (*capacity)++;  // in fully associative mapping there are only capacity misses
                 (*misses)++;
-                c1[randomSwap(assoc)].tag = tag;
+                c1[rand() % assoc].tag = tag;
             }
         }
 
